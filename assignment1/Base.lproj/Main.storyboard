@@ -277,7 +277,7 @@ Unicode: U+23CE, UTF-8: E2 8F 8E</string>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="O0b-gK-CUR" secondAttribute="trailing" constant="4" id="02U-EM-62z"/>
                             <constraint firstItem="0ys-9T-o7J" firstAttribute="height" secondItem="g64-Wc-8TX" secondAttribute="height" constant="-1" id="03y-rV-YaR"/>

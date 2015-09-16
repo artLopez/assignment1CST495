@@ -14,29 +14,29 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputHistory: UILabel!
     
     
-    var userMiddleTypingNum = false
+    var userMiddleOfTypingNumber = false
     var hasDecimal = false
     
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
-    
-        if userMiddleTypingNum{
-            if( digit == "." && display.text!.rangeOfString(".") == nil || digit != "."){
-                
+        let currentText = display.text!
+        if userMiddleOfTypingNumber{
+            if( digit == "." && currentText.rangeOfString(".") == nil &&
+                currentText.rangeOfString("π") == nil || digit != "." && digit != "π"){
                 inputHistory.text = inputHistory.text! + digit
             }
         }
         else {
             checkIfPi(digit)
             inputHistory.text = inputHistory.text! + " " + digit
-            userMiddleTypingNum = true
+            userMiddleOfTypingNumber = true
         }
     }
     
     @IBAction func clearButton(sender: UIButton) {
         operandStack.removeAll()
         display.text = "0"
-        userMiddleTypingNum = false
+        userMiddleOfTypingNumber = false
         inputHistory.text = ""
     }
     @IBAction func operate(sender: UIButton) {
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
             inputHistory.text = inputHistory.text! + " " + sender.currentTitle!
         }
         
-        if userMiddleTypingNum{
+        if userMiddleOfTypingNumber{
             enter()
         }
         if let operation = sender.currentTitle{
@@ -54,8 +54,11 @@ class ViewController: UIViewController {
             case "+": performOperation{ $0 + $1}
             case "−": performOperation{ $1 - $0}
             case "√" : performOperation { sqrt($0)}
+                    stackHasValues(operation)
             case "sin": performOperation{ sin($0) }
+                      stackHasValues(operation)
             case "cos": performOperation{ cos($0) }
+                      stackHasValues(operation)
                 
             default: break
             }
@@ -68,7 +71,6 @@ class ViewController: UIViewController {
         }else{
             display.text = digit
         }
-
     }
     
     func checkDoubleOperation(operation: String) -> Bool{
@@ -77,6 +79,12 @@ class ViewController: UIViewController {
             return true
         }
         return false
+    }
+    
+    func stackHasValues(operation: String){
+        if( operandStack.count > 0){
+                inputHistory.text = inputHistory.text! + " " + operation
+        }
     }
     
     
@@ -97,7 +105,7 @@ class ViewController: UIViewController {
     var operandStack = Array<Double>()
 
     @IBAction func enter() {
-        userMiddleTypingNum = false
+        userMiddleOfTypingNumber = false
         operandStack.append(displayValue)
         println("operandStack = \(operandStack)")
     }
@@ -113,7 +121,7 @@ class ViewController: UIViewController {
         }
         set{
             display.text = "\(newValue)"
-            userMiddleTypingNum = false
+            userMiddleOfTypingNumber = false
         }
     }
 }
