@@ -13,16 +13,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var inputHistory: UILabel!
     
-    
     var userMiddleOfTypingNumber = false
     var hasDecimal = false
     
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
         let currentText = display.text!
+        
         if userMiddleOfTypingNumber{
             if( digit == "." && currentText.rangeOfString(".") == nil &&
                 currentText.rangeOfString("π") == nil || digit != "." && digit != "π"){
+                display.text = display.text! + digit
                 inputHistory.text = inputHistory.text! + digit
             }
         }
